@@ -1,0 +1,28 @@
+.bookshelf {
+  margin-top: 16px;
+  align-content: center;
+}
+
+.bookshelf-title {
+  align-content: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16pt;
+  padding: 8px;
+  background: red;
+  margin: 0px;
+}
+
+.bookshelf-list {
+  background: #c3c3c3;
+  padding: 16px;
+  margin: 0px;
+}
+
+.bookshelf-list-item {
+  display: inline;
+  padding: 16px;
+}
+
+.bookshelf-list-item-title {
+  display: inline;
+}

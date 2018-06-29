@@ -8,10 +8,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 You can easily run this project using those commands:
 
-```
+```shell
 yarn install
 ```
 
-```
+```shell
 yarn start
 ```
