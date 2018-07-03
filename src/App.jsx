@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import AppHeader from './AppHeader';
+import AppHeader from './screens/myreads/components/AppHeader';
 import Bookshelf from './screens/myreads/components/Bookshelf';
 
 class App extends Component {
