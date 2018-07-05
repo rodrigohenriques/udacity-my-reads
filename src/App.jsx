@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import AppHeader from './screens/myreads/components/AppHeader';
 import Bookshelf from './screens/myreads/components/Bookshelf';
+import Books from './screens/books/components/Books';
 
 class App extends Component {
   state = {
@@ -36,6 +37,8 @@ class App extends Component {
         <Bookshelf
           title='Read'
           books={this.state.read} />
+
+        <Books />
       </div>
     );
   }
