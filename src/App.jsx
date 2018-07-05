@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import AppHeader from './screens/myreads/components/AppHeader';
-import Bookshelf from './screens/myreads/components/Bookshelf';
 import Books from './screens/books/components/Books';
+import MyReads from './screens/myreads/components/MyReads';
+import { Route } from 'react-router-dom'
 
 class App extends Component {
   state = {
@@ -24,23 +24,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <AppHeader title='My Reads' />
+        <Route exact path='/' render={() => (
+          <MyReads
+            reading={this.state.reading}
+            wantToRead={this.state.wantToRead}
+            read={this.state.read}
+          />
+        )} />
 
-        <Bookshelf
-          title='Currently Reading'
-          books={this.state.reading} />
-
-        <Bookshelf
-          title='Want to Read'
-          books={this.state.wantToRead} />
-
-        <Bookshelf
-          title='Read'
-          books={this.state.read} />
-
-        <Books />
+        <Route exact path='/books' component={Books} />
       </div>
-    );
+    )
   }
 }
 

@@ -42,7 +42,6 @@ class Books extends Component {
 
     var booksList = searchResult || books
 
-
     return <div className='books'>
       <SearchBar placeholder='Find your book' query={query} onQueryChanged={(query) => this.updateQuery(query)} />
       <p className='books-list-title'>Books</p>

@@ -1,6 +1,26 @@
 .app-header {
   background: black;
-  padding: 16px;
   color: white;
   font-size: 1.5em;
+  width: 100%;
+  top: 0;
+}
+
+.app-header-title {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.app-header-find-books {
+  background: greenyellow;
+  border: 0;
+  outline: none;
+  display: flex;
+  padding: 8px;
+  float: right;
+}
+
+.app-header-find-books-icon {
+  width: 32px;
+  height: 32px;
 }
