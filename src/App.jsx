@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import Books from './screens/books/components/Books';
 import MyReads from './screens/myreads/components/MyReads';
 import { Route } from 'react-router-dom'
@@ -23,7 +22,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <Route exact path='/' render={() => (
           <MyReads
             reading={this.state.reading}
