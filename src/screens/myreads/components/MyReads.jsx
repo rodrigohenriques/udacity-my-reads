@@ -1,7 +1,11 @@
 import React from 'react'
 import AppHeader from './AppHeader'
 import Bookshelf from './Bookshelf'
-import { getAll } from '../../../BooksAPI'
+import { getAll, update } from '../../../BooksAPI'
+
+const WantToRead = { id: 'wantToRead', name: 'Want to Read' };
+const CurrentlyReading = { id: 'currentlyReading', name: 'Currently Reading' };
+const Read = { id: 'read', name: 'Read' };
 
 class MyReads extends React.Component {
   state = {
@@ -10,12 +14,20 @@ class MyReads extends React.Component {
     read: []
   }
 
-  componentWillMount = () => {
+  getData = () => {
     getAll().then(books => this.setState({
-      reading: books.slice(0, 2),
-      wantToRead: books.slice(3, 4),
-      read: books.slice(4, 6)
+      reading: books.filter(b => b.shelf === CurrentlyReading.id),
+      wantToRead: books.filter(b => b.shelf === WantToRead.id),
+      read: books.filter(b => b.shelf === Read.id)
     }))
+  }
+
+  componentWillMount = () => {
+    this.getData()
+  }
+
+  onOptionClick = (book, option) => {
+    update(book, option.id).then(() => this.getData())
   }
 
   render() {
@@ -26,16 +38,22 @@ class MyReads extends React.Component {
         <AppHeader title='My Reads' />
 
         <Bookshelf
-          title='Currently Reading'
-          books={reading} />
+          title='Want to Read'
+          books={wantToRead}
+          options={[CurrentlyReading, Read]}
+          onOptionClick={this.onOptionClick} />
 
         <Bookshelf
-          title='Want to Read'
-          books={wantToRead} />
+          title='Currently Reading'
+          books={reading}
+          options={[WantToRead, Read]}
+          onOptionClick={this.onOptionClick} />
 
         <Bookshelf
           title='Read'
-          books={read} />
+          books={read}
+          options={[WantToRead, CurrentlyReading]}
+          onOptionClick={this.onOptionClick} />
       </div>
     );
   }

@@ -23,12 +23,14 @@ class Bookshelf extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
+    options: PropTypes.array.isRequired,
+    onOptionClick: PropTypes.func.isRequired,
     classes: PropTypes.object
   }
 
   render() {
     const { spacing } = this.state;
-    const { title, books, classes } = this.props;
+    const { title, books, options, onOptionClick, classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -40,8 +42,8 @@ class Bookshelf extends Component {
           <Grid item xs={12}>
             <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>
               {books.map(book => (
-                <Grid key={book} item>
-                  <Book book={book} />
+                <Grid key={book.id} item>
+                  <Book book={book} options={options} onOptionClick={(op) => onOptionClick(book, op)}/>
                 </Grid>
               ))}
             </Grid>
