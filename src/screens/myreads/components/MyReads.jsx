@@ -1,29 +1,44 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 import AppHeader from './AppHeader'
 import Bookshelf from './Bookshelf'
+import { getAll } from '../../../BooksAPI'
 
-const MyReads = ({ reading, wantToRead, read }) =>
-  <div className="my-reads">
-    <AppHeader title='My Reads' />
+class MyReads extends React.Component {
+  state = {
+    reading: [],
+    wantToRead: [],
+    read: []
+  }
 
-    <Bookshelf
-      title='Currently Reading'
-      books={reading} />
+  componentWillMount = () => {
+    getAll().then(books => this.setState({
+      reading: books.slice(0, 2),
+      wantToRead: books.slice(3, 4),
+      read: books.slice(4, 6)
+    }))
+  }
 
-    <Bookshelf
-      title='Want to Read'
-      books={wantToRead} />
+  render() {
+    const { reading, wantToRead, read } = this.state;
 
-    <Bookshelf
-      title='Read'
-      books={read} />
-  </div>
+    return (
+      <div>
+        <AppHeader title='My Reads' />
 
-MyReads.propTypes = {
-  reading: PropTypes.array.isRequired,
-  wantToRead: PropTypes.array.isRequired,
-  read: PropTypes.array.isRequired,
+        <Bookshelf
+          title='Currently Reading'
+          books={reading} />
+
+        <Bookshelf
+          title='Want to Read'
+          books={wantToRead} />
+
+        <Bookshelf
+          title='Read'
+          books={read} />
+      </div>
+    );
+  }
 }
 
 export default MyReads
