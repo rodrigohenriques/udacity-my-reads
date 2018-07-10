@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/Books.css'
-import { search, update } from '../../../BooksAPI'
+import { search, update, getAll } from '../../../BooksAPI'
 import SearchBar from './SearchBar';
 import _ from 'lodash';
 import Bookshelf from '../../../Bookshelf';
@@ -9,48 +9,61 @@ class SearchBooks extends Component {
 
   state = {
     query: '',
-    result: []
+    result: [],
+    books: [],
+    title: ''
   }
 
-  componentWillMount = () => search(' ')
+  componentWillMount = () => {
+    getAll().then(books => this.setState({ books }))
+  }
 
   updateQuery = (query) => {
-    this.setState({ query })
+    this.setState({
+      query,
+      title: 'Loading...'
+    })
     this.debouncedSearch(query.trim())
   }
 
-  debouncedSearch = _.debounce(query => this.search(query), 500)
+  debouncedSearch = _.debounce(query => this.performSearch(query), 500)
 
-  search = (query) => {
+  performSearch = (query) => {
     search(query).then(books => this.setResultState(books))
   }
 
   setResultState = (books) => {
+    let result = []
+
     if (Array.isArray(books)) {
       let uniqBooks = _.uniqBy(books, (book) => book.title);
-      this.setState({ result: uniqBooks })
-    } else {
-      this.setState({ result: [] })
+      result = uniqBooks.map(book => this.getBookFromStateById(book.id) || book);
     }
+
+    this.setState({
+      result,
+      title: `${result.length || 0} results`
+    })
   }
 
-  onOptionClick = (book, option) => {
-    update(book, option.id).then(() => {
-      let updatedResult = this.state.result.map(b => {
-        if (b.id !== book.id) return b
-        return {
-          ...book,
-          shelf: option.id
-        }
-      })
-      this.setState({ result: updatedResult })
+  getBookFromStateById = (bookId) => _.first(this.state.books.filter(b => b.id === bookId))
+
+  onOptionClick = (book, shelf) => {
+    update(book, shelf.id).then(() => {
+      const { books } = this.state;
+
+      book.shelf = shelf.id;
+
+      let updatedBooks = books.filter(b => b.id !== book.id);
+
+      updatedBooks.push(book);
+
+      this.setState({ books: updatedBooks })
     })
   }
 
   render() {
-    const { query, result } = this.state;
-
-    const title = `${result.length || 0} results`;
+    const { query, result, title } = this.state;
 
     return <div className='books'>
       <SearchBar placeholder='Find your book' query={query} onQueryChanged={(query) => this.updateQuery(query)} />
