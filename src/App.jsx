@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Books from './screens/books/components/Books';
+import SearchBooks from './screens/books/components/SearchBooks';
 import MyReads from './screens/myreads/components/MyReads';
 import { Route } from 'react-router-dom'
 
@@ -9,7 +9,7 @@ class App extends Component {
       <div>
         <Route exact path='/' component={MyReads} />
 
-        <Route exact path='/books' component={Books} />
+        <Route exact path='/search' component={SearchBooks} />
       </div>
     )
   }

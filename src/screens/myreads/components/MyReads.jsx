@@ -1,24 +1,21 @@
 import React from 'react'
 import AppHeader from './AppHeader'
-import Bookshelf from './Bookshelf'
+import Bookshelf from '../../../Bookshelf'
 import { getAll, update } from '../../../BooksAPI'
-
-const WantToRead = { id: 'wantToRead', name: 'Want to Read' };
-const CurrentlyReading = { id: 'currentlyReading', name: 'Currently Reading' };
-const Read = { id: 'read', name: 'Read' };
+import Shelves from '../../../Shelves'
 
 class MyReads extends React.Component {
   state = {
-    reading: [],
+    currentlyReading: [],
     wantToRead: [],
     read: []
   }
 
   getData = () => {
     getAll().then(books => this.setState({
-      reading: books.filter(b => b.shelf === CurrentlyReading.id),
-      wantToRead: books.filter(b => b.shelf === WantToRead.id),
-      read: books.filter(b => b.shelf === Read.id)
+      currentlyReading: books.filter(b => b.shelf === Shelves.CurrentlyReading.id),
+      wantToRead: books.filter(b => b.shelf === Shelves.WantToRead.id),
+      read: books.filter(b => b.shelf === Shelves.Read.id)
     }))
   }
 
@@ -31,28 +28,28 @@ class MyReads extends React.Component {
   }
 
   render() {
-    const { reading, wantToRead, read } = this.state;
+    const { currentlyReading, wantToRead, read } = this.state;
 
     return (
       <div>
         <AppHeader title='My Reads' />
 
         <Bookshelf
-          title='Want to Read'
+          id={Shelves.WantToRead.id}
+          name={Shelves.WantToRead.name}
           books={wantToRead}
-          options={[CurrentlyReading, Read]}
           onOptionClick={this.onOptionClick} />
 
         <Bookshelf
-          title='Currently Reading'
-          books={reading}
-          options={[WantToRead, Read]}
+          id={Shelves.CurrentlyReading.id}
+          name={Shelves.CurrentlyReading.name}
+          books={currentlyReading}
           onOptionClick={this.onOptionClick} />
 
         <Bookshelf
-          title='Read'
+          id={Shelves.Read.id}
+          name={Shelves.Read.name}
           books={read}
-          options={[WantToRead, CurrentlyReading]}
           onOptionClick={this.onOptionClick} />
       </div>
     );

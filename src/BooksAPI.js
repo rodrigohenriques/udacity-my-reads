@@ -41,3 +41,7 @@ export const search = (query) =>
     body: JSON.stringify({ query })
   }).then(res => res.json())
     .then(data => data.books)
+
+export const WantToRead = { id: 'wantToRead', name: 'Want to Read' };
+export const CurrentlyReading = { id: 'currentlyReading', name: 'Currently Reading' };
+export const Read = { id: 'read', name: 'Read' };

@@ -23,7 +23,7 @@ const AppHeader = ({ title, classes }) =>
         <Typography variant="title" color="inherit" className={classes.flex}>
           {title}
         </Typography>
-        <Button component={Link} to="/books" color="inherit">Get Books</Button>
+        <Button component={Link} to="/search" color="inherit">Search Books</Button>
       </Toolbar>
     </AppBar>
   </div>
