@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import Bookshelf from '../../../Bookshelf'
-import { getAll, update } from '../../../BooksAPI'
-import Shelves from '../../../Shelves'
+import Bookshelf from './Bookshelf'
+import { getAll, update } from '../BooksAPI'
+import Shelves from '../Shelves'
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';

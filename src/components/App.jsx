@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SearchBooks from './screens/books/components/SearchBooks';
-import MyReads from './screens/myreads/components/MyReads';
+import SearchBooks from './SearchBooks';
+import MyReads from './MyReads';
 import { Route } from 'react-router-dom'
 
 class App extends Component {

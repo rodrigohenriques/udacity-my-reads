@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../css/SearchBar.css'
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
+import SearchIcon from '../icons/search.svg'
 
 const styles = {
   appbar: {
@@ -14,6 +14,18 @@ const styles = {
   },
   flex: {
     flex: 1,
+  },
+  input: {
+    width: '100%',
+    padding: '20px 20px 20px 60px',
+    backgroundImage: `url(${SearchIcon})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: '20px center',
+    backgroundSize: '1.2em',
+    fontSize: '1.2em',
+    border: 0,
+    outline: 'none',
+    borderBottom: '1px solid #d5d8df',
   }
 };
 
@@ -29,7 +41,7 @@ const SearchBar = ({ placeholder, query, onQueryChanged, classes }) =>
     </AppBar>
 
     <input
-      className='search-input'
+      className={classes.input}
       type='text'
       placeholder={placeholder}
       value={query}
