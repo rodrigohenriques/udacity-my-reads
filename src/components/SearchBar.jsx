@@ -16,7 +16,6 @@ const styles = {
     flex: 1,
   },
   input: {
-    width: '100%',
     padding: '20px 20px 20px 60px',
     backgroundImage: `url(${SearchIcon})`,
     backgroundRepeat: 'no-repeat',
@@ -30,15 +29,13 @@ const styles = {
 };
 
 const SearchBar = ({ placeholder, query, onQueryChanged, classes }) =>
-  <div>
-    <AppBar position="static" className={classes.appbar}>
-      <Toolbar>
-        <Typography variant="title" color="inherit" className={classes.flex}>
-          Search Books
-        </Typography>
-        <Button component={Link} to="/" color="inherit">Back</Button>
-      </Toolbar>
-    </AppBar>
+  <AppBar position="static" className={classes.appbar}>
+    <Toolbar>
+      <Typography variant="title" color="inherit" className={classes.flex}>
+        Search Books
+      </Typography>
+      <Button component={Link} to="/" color="inherit">Back</Button>
+    </Toolbar>
 
     <input
       className={classes.input}
@@ -47,7 +44,7 @@ const SearchBar = ({ placeholder, query, onQueryChanged, classes }) =>
       value={query}
       onChange={(event) => onQueryChanged(event.target.value)}
     />
-  </div>
+  </AppBar>
 
 
 SearchBar.propTypes = {

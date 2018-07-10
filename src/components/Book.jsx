@@ -10,11 +10,11 @@ import Shelves from '../Shelves'
 
 const styles = theme => ({
   card: {
-    width: 500,
+    width: 600,
     display: 'flex',
   },
   details: {
-    width: '75%',
+    width: '80%',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -22,20 +22,21 @@ const styles = theme => ({
     flex: '1 0 auto'
   },
   cover: {
-    width: '25%',
+    width: '20%',
     height: 170,
   },
   controls: {
     display: 'flex',
     alignItems: 'center',
-    padding: theme.spacing.unit
+    padding: theme.spacing.unit,
+    fontSize: '10pt',
   }
 });
 
 const noCoverThumb = 'https://books.google.com.br/googlebooks/images/no_cover_thumb.gif'
 
 const Book = ({ book, onOptionClick, classes }) => {
-  var options = Shelves.All.filter(shelf => shelf.id !== book.shelf);
+  var options = Shelves.All.filter(shelf => shelf.id !== (book.shelf || 'none'));
 
   return (
     <div className={classes.root}>

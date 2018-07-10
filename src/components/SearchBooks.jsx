@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import { search, update, getAll } from '../BooksAPI'
+import PropTypes from 'prop-types';
+import { search } from '../BooksAPI'
 import SearchBar from './SearchBar';
 import _ from 'lodash';
 import Bookshelf from './Bookshelf';
 
 class SearchBooks extends Component {
-
   state = {
     query: '',
     result: [],
-    booksInShelves: [],
     title: ''
   }
 
-  componentWillMount = () => {
-    getAll().then(books => this.setState({ booksInShelves: books }))
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onOptionClick: PropTypes.func.isRequired,
+    classes: PropTypes.object
   }
 
   updateQuery = (query) => {
@@ -41,36 +42,26 @@ class SearchBooks extends Component {
   }, 500);
 
   getBookInShelfById = (bookId) => {
-    const { booksInShelves } = this.state;
-    const filteredBooks = booksInShelves.filter(b => b.id === bookId);
+    const { books } = this.props;
+    const filteredBooks = books.filter(b => b.id === bookId);
     const bookInShelf = _.first(filteredBooks);
     return bookInShelf;
   }
 
-  onOptionClick = (book, shelf) => {
-    update(book, shelf.id).then(() => {
-      const { booksInShelves } = this.state;
-
-      book.shelf = shelf.id;
-
-      let newBooksInShelves = booksInShelves.filter(b => b.id !== book.id);
-
-      newBooksInShelves.push(book);
-
-      this.setState({ booksInShelves: newBooksInShelves })
-    })
-  }
-
   render() {
+    const { onOptionClick } = this.props;
     const { query, result, title } = this.state;
 
     return <div className='books'>
-      <SearchBar placeholder='Find your book' query={query} onQueryChanged={(query) => this.updateQuery(query)} />
+      <SearchBar
+        placeholder='Find your book'
+        query={query}
+        onQueryChanged={(query) => this.updateQuery(query)}
+      />
       <Bookshelf
-        id='all'
         name={title}
         books={result}
-        onOptionClick={this.onOptionClick}
+        onOptionClick={onOptionClick}
       />
     </div>;
   }

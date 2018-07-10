@@ -21,7 +21,6 @@ class Bookshelf extends Component {
   };
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
     onOptionClick: PropTypes.func.isRequired,
